@@ -16,7 +16,7 @@ for (const fn of fns) {
   const ll = EXIF.toLatLng(exif);
   data.push({
     icon: "icon/" + fn,
-    photo: "https://code4fukui.github.io/jihanki/img/" + fn,
+    photo: "https://github.com/Hiroyuki-Sugata/Hiroyuki-Sugata.github.io/tree/main/img/" + fn,
     lat: ll.lat.toFixed(6),
     lng: ll.lng.toFixed(6),
   })
