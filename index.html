@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>"位置情報×地図で情報見える化"</title>
-  <meta name="description" content="水素ステーションマップ">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+<meta charset="UTF-8">
+<title>"位置情報×地図で情報見える化"</title>
+<meta name="description" content="避難所マップ">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
 </head>
 <body>
-  <h1>位置情報×地図で情報の見える化をする！</h1>
-  <h2> <font color="blue"> 活用例①：自治体オープンデータを使ったスポット見える化</font><br>
-    　例：避難所マップ市、お祭りの時のトイレマップ、赤ちゃんスペースのマップ</h2>
-  <h2><font color="blue"> 活用例②：スマホ写真の位置情報を使ったマッピング</font><br>
-    　例：棚卸し・試験車借用時の現物と情報のマッピング(もう探し回らなくていい！)<br>
-　　　異常個所の見える化(故障設備、道路破損箇所、住民苦情のマップ化)</h2>
-  <h3>【活用例①：避難所マップ@愛知県みよし市】</h3>
-  
-  <div id="map" style="height: 400px;"></div>
+<h1>位置情報×地図で情報の見える化をする！</h1>
+<h3> <font color="blue">活用例①：自治体オープンデータを使ったスポット見える化</font><br>
+　例：避難所マップ市、お祭りの時のトイレマップ、赤ちゃんスペースのマップ</h3>
+<h3> <font color="blue">活用例②：スマホ写真の位置情報を使ったマッピング</font><br>
+　例：棚卸し・試験車借用時の現物と情報のマッピング(もう探し回らなくていい！)<br>
+　　　異常個所の見える化(故障設備、道路破損箇所、住民苦情のマップ化)</h3>
+<h4>【活用例①：避難所マップ@愛知県みよし市】</h4>
+<div id="map" style="height: 400px;"></div>
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
   <script>
     const center = [35.085939, 137.07349];
@@ -120,8 +119,33 @@
     stationMarker.bindPopup("避難所<br>" + latLng[2] + "<br>"+ latLng[3]);
   }
   </script>
-<h3>【活用例②：XXXXXX】</h3>
+<h3>【活用例②：スマホの位置情報をマッピング】</h3>
 
 
+
+<div id="map2" style="height: 400px;"></div>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+const center2 = [35.085939, 137.07349];
+const map2 = L.map('map2').setView(center2, 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+maxZoom: 18,
+}).addTo(map2);
+const stationLatLng2 =[[35.0845, 137.0741, "IMG_0075.JPG"]
+];
+for (const latLng2 of stationLatLng2) {
+if (latLng2.length === 4) {
+const stationMarker2 = L.marker([latLng2[0], latLng2[1]]).addTo(map2);
+stationMarker2.bindPopup("避難所<br>" + latLng2[2] + "<br>"+ latLng2[3]);
+} else if (latLng2.length === 3) {
+const photoMarker = L.marker([latLng2[0], latLng2[1]]).addTo(map2);
+photoMarker.bindPopup(`<img src="${latLng2[2]}">`);
+const imageUrl = latLng2[2];
+const imageBounds = [[latLng2[0], latLng2[1]], [latLng2[0]+0.000000000001, latLng2[1]+0.000000000001]];
+const imageOverlay = L.imageOverlay(imageUrl, imageBounds).addTo(map2);
+}
+}
+</script>
 </body>
 </html>
